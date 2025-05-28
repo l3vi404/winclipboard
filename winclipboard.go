@@ -1,6 +1,7 @@
 package winclipboard
 
 import (
+	"context"
 	"fmt"
 	"github.com/l3vi404/winclipboard/win32"
 	"golang.org/x/sys/windows"
@@ -181,7 +182,7 @@ var (
 // AddClipboardUpdateListener
 //
 // Add clipboard update listener.
-func AddClipboardUpdateListener(handler ClipboardCallback, ctx any) {
+func AddClipboardUpdateListener(handler ClipboardCallback, ctx context.Context) {
 	clipboardUpdateListenersMutex.Lock()
 	defer clipboardUpdateListenersMutex.Unlock()
 	clipboardUpdateListeners = append(clipboardUpdateListeners, clipboardListener{
@@ -202,7 +203,7 @@ func ClearClipboardUpdateListeners() {
 // AddClipboardDestroyListener
 //
 // Add clipboard destroy listener
-func AddClipboardDestroyListener(handler ClipboardCallback, ctx any) {
+func AddClipboardDestroyListener(handler ClipboardCallback, ctx context.Context) {
 	clipboardDestroyListenersMutex.Lock()
 	defer clipboardDestroyListenersMutex.Unlock()
 	clipboardDestroyListeners = append(clipboardDestroyListeners, clipboardListener{

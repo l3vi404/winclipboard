@@ -1,6 +1,7 @@
 package winclipboard
 
 import (
+	"context"
 	"fmt"
 	"github.com/l3vi404/winclipboard/win32"
 	"testing"
@@ -47,11 +48,11 @@ func TestStartClipboardListener(t *testing.T) {
 	AddClipboardUpdateListener(func(ctx any) {
 		text, _ := GetClipboardText()
 		fmt.Printf("The clipboard has been changed, content is: %q\n", text)
-	}, nil)
+	}, context.Background())
 
 	AddClipboardDestroyListener(func(ctx any) {
 		fmt.Println("The clipboard destroyed")
-	}, nil)
+	}, context.Background())
 	go func() {
 		if err := StartClipboardListener(); err != nil {
 			t.Errorf("Faild StartClipboardListener: %v", err)
